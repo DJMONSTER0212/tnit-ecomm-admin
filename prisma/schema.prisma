@@ -18,6 +18,54 @@ model Store {
   customers   String?
   products    String?
   category    String?
+  settings    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Settings {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  termsAndCondition String       @default("")
+  paymentGateWays   String[]     @default(["Cash"])
+  tax               Int          @default(0)
+  storeImages       StoreImage[]
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+}
+
+model StoreImage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  setting   Settings @relation(fields: [settingId], references: [id])
+  settingId String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+}
+
+model Customer {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+  contact   String
+  email     String    @unique
+  password  String
+  orders    String?
+  Address   Address[]
+  createdAt DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+}
+
+model Address {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  addressLine1 String   @default("")
+  addressLine2 String?
+  contactno    String
+  city         String
+  state        String
+  customer     Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId   String   @db.ObjectId
+  pincode      String
+  createdAt    DateTime @default(now())
+  updateAt     DateTime @updatedAt
 }

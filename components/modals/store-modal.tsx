@@ -15,6 +15,7 @@ import axios from "axios";
 
 const formSchema = z.object({
     name: z.string().min(1),   // min length of 1 for the name of our store
+    description : z.string().min(1)
 })
 
 
@@ -28,6 +29,7 @@ export const StoreModal = () => {
         resolver: zodResolver(formSchema),   /// for out form to get validated by zod
         defaultValues: {
             name: "",
+            description :""
         },
     });
 
@@ -50,7 +52,7 @@ export const StoreModal = () => {
     return (
         <Modal
             title="Create Store"
-            description="Add a new Store to manage products and categories"
+            description="Add a new Store to manage your Products"
             isOpen={storeModal.isOpen}
             onClose={storeModal.onClose}
         >
@@ -67,7 +69,25 @@ export const StoreModal = () => {
                                             Name
                                         </FormLabel>
                                         <FormControl>
-                                            <Input          placeholder="E-commercce"
+                                            <Input          placeholder="E-commerce"
+                                            {...field}
+                                            disabled={loading}
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({field})=>(
+                                    <FormItem>
+                                        <FormLabel>
+                                            Description
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input          placeholder="Description"
                                             {...field}
                                             disabled={loading}
                                             />
