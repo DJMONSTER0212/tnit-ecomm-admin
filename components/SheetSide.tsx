@@ -1,8 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link'
 import {
     Sheet,
@@ -15,33 +14,21 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 // import { Button } from "@/components/ui/button"
-import {Separator} from "@/components/ui/separator"
+import { Separator } from "@/components/ui/separator"
 import prismadb from "@/lib/prismadb"
-import { HomeIcon , BarChartIcon } from "@radix-ui/react-icons"
+import { HomeIcon, BarChartIcon } from "@radix-ui/react-icons"
 import { useRouter } from 'next/router'
-const SHEET_SIDES = [ "left"] as const
+import { IndianRupee, ListOrdered, Settings, Settings2, ShoppingBag, User } from "lucide-react";
+const SHEET_SIDES = ["left"] as const
 
 type SheetSide = (typeof SHEET_SIDES)[number]
-interface sheetprops{
-    name : string
+interface sheetprops {
+    name: string
 }
 
-const  SheetSide= ({name}: sheetprops)=> {
-    // const id = {}
-    // const router = useRouter();
-    // const {storeId} = router;
-    // console.log(storeId);
-    const getName = async ()=>{
-        try {
-            // const store = await prismadb.store.findUnique({where:{
-            //     // id : router.query.storeId
-            // }})
-
-        } catch (error) {
-            console.log(error);
-            return;
-        }
-    }
+const SheetSide = ({ name }: sheetprops) => {
+    const pathName = usePathname();
+    const params = useParams();
     return (
         <div className="grid grid-cols-2 gap-2">
             {SHEET_SIDES.map((side) => (
@@ -49,37 +36,49 @@ const  SheetSide= ({name}: sheetprops)=> {
                     <SheetTrigger asChild>
                         <Button variant="outline">Menu</Button>
                     </SheetTrigger>
-                    <SheetContent side={side}>
+                    <SheetContent className="w-1/5" side={side}>
                         <SheetHeader>
-                            <SheetTitle>{name} <img src={"testUrl"} alt="companyLogo"/></SheetTitle>
+                            <SheetTitle>Navigation Controls</SheetTitle>
                             <SheetDescription>
                                 Explore
                             </SheetDescription>
                         </SheetHeader>
                         <div className="grid gap-4 py-4">
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={`/${params.storeId}/orders`}> <ListOrdered fontSize={100} /><span>Orders</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={`/${params.storeId}/products`} > <ShoppingBag fontSize={100} /><span>Products</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={`/${params.storeId}/customers`}> <User fontSize={100} /><span>Customers</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={`/{params.storeId}/payments`}> <IndianRupee fontSize={100} /><span>Payments</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                             <div>
-                            <Link  replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={'/'}> <BarChartIcon fontSize={100} /><span>DashBoard</span></Link>
-                            <Separator/>
+                                <SheetTrigger asChild>
+                                    <Link replace={true} className="flex px-4 text-xl text-center mb-1 flex-row items-center gap-2" href={`/${params.storeId}/settings`}> <Settings2 fontSize={50} /><span>Settings</span></Link>
+                                </SheetTrigger>
+                                <Separator />
                             </div>
                         </div>
                         <SheetFooter>
