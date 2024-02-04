@@ -8,10 +8,20 @@ import { formatter } from "@/lib/utils";
 const ProductPage = async ({
     params
 }: { params: { storeId: string } }) => {
-    const products = await prismadb
+
+    const products = await prismadb.product.findMany({
+        where: {
+            storeId: params.storeId
+        }
+    })
+
+    const formattedProducts: PorductColumn[] = [];
+
     return (
         <div>
-
+            <div className="p-5">
+                <ProductClient data={formattedProducts} />
+            </div>
         </div>
     )
 }

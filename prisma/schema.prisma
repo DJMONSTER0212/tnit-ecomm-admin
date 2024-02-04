@@ -16,7 +16,7 @@ model Store {
   name        String
   description String?
   customers   String?
-  products    String?
+  products    Product[]
   category    String?
   settings    String?
   createdAt   DateTime @default(now())
@@ -73,6 +73,8 @@ model Address {
 model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+  storeId String @db.ObjectId
+  store   Store @relation(fields: [storeId], references: [id] ,onDelete: Cascade)
   description String?
   variants Variant[]
 }
