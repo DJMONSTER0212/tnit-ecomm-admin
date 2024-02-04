@@ -4,7 +4,7 @@ import { Heading } from "@/components/ui/Heading"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { formatter } from "@/lib/utils"
-import { CreditCardIcon, IndianRupeeIcon, Package } from "lucide-react"
+import { CreditCardIcon, IndianRupeeIcon, Package, PercentIcon, ShoppingBag, TruckIcon, User2Icon } from "lucide-react"
 import { getGraphRevenue } from '@/actions/get-graph-revenue'
 
 
@@ -35,7 +35,7 @@ const DashBoardPage: React.FC<DashboardPageProps> = async ({
                             <CardContent>
                                 <div className="text-2xl font-bold">
                                     {/* {formatter.format(totalRevenue)} */}
-                                    {12324}
+                                    {1324}
                                 </div>
                             </CardContent>
                         </Card>
@@ -66,7 +66,7 @@ const DashBoardPage: React.FC<DashboardPageProps> = async ({
                             </CardContent>
                         </Card>
                     </div>
-                    <div className='w-[100vh] h-full'>
+                    <div className='w-[122vh] h-full'>
                         <Card className="col-span-4">
                             <CardHeader>
                                 <CardTitle>Overview</CardTitle>
@@ -79,12 +79,26 @@ const DashBoardPage: React.FC<DashboardPageProps> = async ({
 
                 </div>
                 <div className='flex flex-row gap-4'>
-                    <Card className='w-3/4'>
+                <Card className='w-4/5 h-[22vh]'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium ">
-                                Total Revenue
+                                Pending Delivery
                             </CardTitle>
-                            <IndianRupeeIcon className="h-4 w-4 text-muted-foreground" />
+                            <TruckIcon className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">
+                                {/* {formatter.format(totalRevenue)} */}
+                                {124}
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <Card className='w-4/5 h-[22vh]'>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium ">
+                                Customers
+                            </CardTitle>
+                            <User2Icon className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
@@ -93,35 +107,36 @@ const DashBoardPage: React.FC<DashboardPageProps> = async ({
                             </div>
                         </CardContent>
                     </Card>
-                    <Card className='w-3/4'>
+                    <Card className='w-3/4 h-[22vh]'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium ">
-                                Total Revenue
+                                Discount
                             </CardTitle>
-                            <IndianRupeeIcon className="h-4 w-4 text-muted-foreground" />
+                            <PercentIcon className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
                                 {/* {formatter.format(totalRevenue)} */}
-                                {12324}
+                                {14}
                             </div>
                         </CardContent>
                     </Card>
 
-                    <Card className='w-3/4'>
+                    <Card className='w-3/4 h-[22vh]'>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium ">
-                                Total Revenue
+                                Orders
                             </CardTitle>
-                            <IndianRupeeIcon className="h-4 w-4 text-muted-foreground" />
+                            <ShoppingBag className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
                                 {/* {formatter.format(totalRevenue)} */}
-                                {12324}
+                                {124}
                             </div>
                         </CardContent>
                     </Card>
+
                 </div>
 
             </div>
