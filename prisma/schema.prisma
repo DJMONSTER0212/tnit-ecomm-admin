@@ -11,26 +11,31 @@ datasource db {
 }
 
 model Store {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   adminId     String
   name        String
   description String?
   customers   String?
   products    Product[]
   category    String?
-  settings    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  setting     Settings?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Settings {
   id                String       @id @default(auto()) @map("_id") @db.ObjectId
-  termsAndCondition String       @default("")
+  gstin             String?
+  pan               String?
+  termsAndCondition String?       @default("")
   paymentGateWays   String[]     @default(["Cash"])
-  tax               Int          @default(0)
+  tax               Int?          @default(0)
   storeImages       StoreImage[]
+  storeId           String?      @unique @db.ObjectId
+  store             Store?       @relation(fields: [storeId], references: [id], onDelete: Cascade)
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
+  Address           Address[]
 }
 
 model StoreImage {
@@ -57,26 +62,28 @@ model Customer {
 }
 
 model Address {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  addressLine1 String   @default("")
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  addressLine1 String    @default("")
   addressLine2 String?
   contactno    String
   city         String
   state        String
-  customer     Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  customerId   String   @db.ObjectId
+  settingId    String    @db.ObjectId
+  setting      Settings  @relation(fields: [settingId], references: [id], onDelete: Cascade)
+  customer     Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId   String?   @db.ObjectId
   pincode      String
-  createdAt    DateTime @default(now())
-  updateAt     DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
 }
 
 model Product {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  storeId String @db.ObjectId
-  store   Store @relation(fields: [storeId], references: [id] ,onDelete: Cascade)
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  storeId     String    @db.ObjectId
+  store       Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
   description String?
-  variants Variant[]
+  variants    Variant[]
 }
 
 model Variant {
@@ -89,8 +96,8 @@ model Variant {
   height    Int
   width     Int
   length    Int
-  productId String @db.ObjectId
-  product   Product @relation(fields: [productId],references: [id], onDelete: Cascade)
+  productId String         @db.ObjectId
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
   images    VariantImage[]
   createdAt DateTime       @default(now())
   updateAt  DateTime       @updatedAt
