@@ -8,7 +8,7 @@ export async function POST(
     try {
         const { userId } = auth();
         const body = await req.json();
-        const { name, description, gstin, pan, addressLine1, adderessLine2, contactno, city, state, pincode } = body;
+        const { name, description, gstin, pan, addressLine1, addressLine2, contactno, city, state, pincode } = body;
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
@@ -32,12 +32,13 @@ export async function POST(
         })
         const address = await prismadb.address.create({
             data: {
-                addressLine1: addressLine1 || "",
-                addressLine2: adderessLine2 || "",
-                contactno: contactno || "",
-                city: city || "",
-                state: state || "",
-                pincode: pincode || ""
+                addressLine1,
+                addressLine2,
+                city,
+                state,
+                pincode,
+                contactno,
+                settingId : settings.id
             }
         })
         return NextResponse.json(store);

@@ -20,12 +20,12 @@ const formSchema = z.object({
     description: z.string().min(1),
     gstin: z.string(),
     pan: z.string(),
-    addressLine1: z.string(),
-    addressLine2: z.string(),
-    contactno: z.string(),
-    state: z.string(),
-    pincode: z.string(),
-    city: z.string(),
+    addressLine1: z.string().min(1),
+    addressLine2: z.string().min(1),
+    contactno: z.string().min(10),
+    state: z.string().min(1),
+    pincode: z.string().min(1),
+    city: z.string().min(1),
 })
 
 
