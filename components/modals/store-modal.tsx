@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import axios from "axios";
+import ImageUpload from "../ui/image-upload";
 
 
 const formSchema = z.object({
@@ -26,6 +27,7 @@ const formSchema = z.object({
     state: z.string().min(1),
     pincode: z.string().min(1),
     city: z.string().min(1),
+    logoUrl: z.string(),
 })
 
 
@@ -47,7 +49,8 @@ export const StoreModal = () => {
             pincode: "",
             state: "",
             city: "",
-            contactno: ""
+            contactno: "",
+            logoUrl: ""
         },
     });
 
@@ -80,7 +83,11 @@ export const StoreModal = () => {
                     <Form  {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <Tabs defaultValue="account" className="w-[400px]">
+                                <TabsContent className="h-[100vh]" value="logo">
+                                    <>
 
+                                    </>
+                                </TabsContent>
                                 <TabsContent value="account">
                                     <>
                                         <FormField
@@ -284,6 +291,7 @@ export const StoreModal = () => {
                                     </>
                                 </TabsContent>
                                 <TabsList className="justify-center items-center w-full bg-inherit mt-2">
+                                    <TabsTrigger value="logo" >Logo</TabsTrigger>
                                     <TabsTrigger value="account" >Basic</TabsTrigger>
                                     <TabsTrigger value="address" >Address</TabsTrigger>
                                     <TabsTrigger value="password">Verification</TabsTrigger>
@@ -291,7 +299,26 @@ export const StoreModal = () => {
                             </Tabs>
 
 
-
+                            <FormField
+                                control={form.control}
+                                name="logoUrl"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Logo
+                                        </FormLabel>
+                                        <FormControl>
+                                            <div className="h-10 w-10">
+                                                <ImageUpload value={field.value ? [field.value] : []}
+                                                    disabled={loading} onChange={(url) => field.onChange(url)}
+                                                    onRemove={() => field.onChange("")}
+                                                />
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
                         </form>
                     </Form>

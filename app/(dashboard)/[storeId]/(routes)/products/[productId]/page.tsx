@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import ImageUpload from "@/components/ui/image-upload";
 import toast from 'react-hot-toast'
+import { Button } from '@/components/ui/button';
 
 const formSchema = z.object({
     imageUrl: z.string()
@@ -70,6 +71,7 @@ const page: React.FC<settingsFormProps> = ({
                             </FormItem>
                         )}
                     />
+                    <Button disabled={loading} className="ml-auto" type="submit">hello</Button>
                 </form>
             </Form>
         </div>

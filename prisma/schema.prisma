@@ -13,6 +13,7 @@ datasource db {
 model Store {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   adminId     String
+  logoUrl     String?
   name        String
   description String?
   customers   String?
@@ -27,9 +28,9 @@ model Settings {
   id                String       @id @default(auto()) @map("_id") @db.ObjectId
   gstin             String?
   pan               String?
-  termsAndCondition String?       @default("")
+  termsAndCondition String?      @default("")
   paymentGateWays   String[]     @default(["Cash"])
-  tax               Int?          @default(0)
+  tax               Int?         @default(0)
   storeImages       StoreImage[]
   storeId           String?      @unique @db.ObjectId
   store             Store?       @relation(fields: [storeId], references: [id], onDelete: Cascade)
@@ -68,8 +69,8 @@ model Address {
   contactno    String
   city         String
   state        String
-  settingId    String?    @db.ObjectId
-  setting      Settings?  @relation(fields: [settingId], references: [id], onDelete: Cascade)
+  settingId    String?   @db.ObjectId
+  setting      Settings? @relation(fields: [settingId], references: [id], onDelete: Cascade)
   customer     Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId   String?   @db.ObjectId
   pincode      String
